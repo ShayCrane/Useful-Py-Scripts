@@ -29,10 +29,12 @@ import os
 # defining function
 def check_ping():
     print(os.system('ping -c 1 10.0.0.227 '))
-    ping_status = 0
+    return 
+
+ping_status = check_ping()
 # infinite while loop
 while True:
-    check_ping()
+    ping_status = 0 
     print("Current date and time: ")
     now = datetime.datetime.now()
     print(str((now)))
@@ -41,3 +43,8 @@ while True:
     print("End : %s" % time.ctime())
        
 
+# notes from a developer friend not associated with code fellows for reference in posterity:
+# to get the status from the check_ping function, you need to do status = check_ping(). Also the check_ping function needs to return 
+# the results of the os.system function call (which is what the return os.system does). you could also do ping_results = os.system 
+# and then return ping_results. That one of the things that you are missing. You also need to output a string that indicates if the ping passed/failed. 
+# The os.system call returns the value of 0 on success and a non-zero error code if it failed. ping returns >0 if it can't ping.
