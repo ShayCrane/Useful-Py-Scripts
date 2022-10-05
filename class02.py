@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 
-# Script Name: Psutil
+# Script Name: Check Ping
 # Author: Shay Crane
-# Date of last revision: 09/14/2022
+# Date of last revision: 10/04/2022
 # Purpose: a Python script that creates an uptime sensor tool and uses ICMP packets to evaluate if hosts on the LAN are up or down.
 
 # The script must:
