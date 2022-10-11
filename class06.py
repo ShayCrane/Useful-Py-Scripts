@@ -6,6 +6,7 @@
 # Date of last revision: 10/10/2022
 # Purpose: a Python script that encrypts a single file
 
+# This script is not complete
 
 # import libraries
 from cryptography.fernet import Fernet
