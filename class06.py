@@ -1,87 +1,119 @@
-# !/usr/bin/python3
+#!/usr/bin/python3
 
 
 # Script Name: Encrypt a File
 # Author: Shay Crane
-# Date of last revision: 10/10/2022
+# Date of last revision: 10/10/2022; 10/11/2022
 # Purpose: a Python script that encrypts a single file
 
-# This script is not complete
+# I used the following site for guidance in writing this script:
+# https://www.thepythoncode.com/article/encrypt-decrypt-files-symmetric-python
+
+# This script is not complete.
 
 # import libraries
-from cryptography.fernet import Fernet
 
+from cryptography.fernet import Fernet # symmetric authenticated cryptography library
+import os.path 
 from os.path import exists
-
-# Declare Variables
-user_choice="y"
-key_exists=exists(key_file_path)
-
-file_exists = os.path.exists('key.key')
+import sys
 
 
-# define function to generate key
-def write_key(): 
-    key = Fernet.generate_key()
-    with open("key.key", "wb") as key_file.write(key)
-
-# define function to load key
-def load_key(): 
+# define funciton: loads the key from the current directory named 'key.key'
+def load_key():
     return open("key.key", "rb").read()
-
-
-def ask_user(): # define function
-# a menu for user input
-# that will run in the next While loop
-print("Choose from the following options: ")
-print("1. encrypt file  2. decrypt file  3. encrypt a message  4. decrypt a message  - Type n to exit")
-chosen = input(int("Enter number corresponding to chosen option: ")) # declare variable from user input
-
-        
-    def encrypt_file(): #1 define function
-    # ask user for file path input
-    # encrypt file contents
-    # show msg that it completed OR print contens of file
-    
-     def decrypt_file(): #2 define function
-    # ask user for msg input
-    # decrypts the msg
-    # prints msg to screen
-   
-    def encrypt_message(): #3 define function
-    # ask user for msg input
-    # encrypts the msg
-    # prints msg to screen
-    
-    def decrypt_message(): #4 define function
-    # ask user for msg input
-    # decrypts the msg
-    # prints msg to screen
-    
-    # n = exit
-    if option = n 
-    then exit 
-
-# reads status from "key_exists"
-
-
-# call function
+#declare variables
 key = load_key()
-print("Key is " + str(key.decode('utf-8')))
+f = Fernet(key)
 
-message = "This message will self-destruct in 10 seconds.  10... 9...".encode()
-print("Plaintext is " + str(message.decode('utf-8')))
-write_key() # call function;  generates a key, saves it to a file
-    # each option produces a key in a variable
-    # feed the variable to the While loop
+# generates a key, saves it into a file
+def write_key():
+    key = Fernet.generate_key()
+    with open(key.key, wb) as key_file: 
+        key_file.write(key)
+
+# 1 define function: encrypts file contents
+def encrypt_file():
+    filepath = input("Enter path of file to be encrypted: ")
+    with open(filepath, "rb") as file:  #reads all file data
+        filedata = file.read()
+    encrypted_data = f.encrypt(filedata) 
+    with open(filepath, "wb") as encrypted_file: #writes encrypted file
+        encrypted_file.write(encrypted_data)
+
+# 2 define function: given a filename and key (bytes), 
+# it decrypts the file and prints it to screen(?)
+def decrypt_file(): 
+        # key = load_key()
+        # print("Key is " + str(key.decode('utf-8')))
+    filepath = input("Enter path of file to be decrypted: ")
+    with open(filepath, "rb") as file: 
+        encrypted_data = file.read()
+        decrypted_data = f.decrypt(encrypted_data)
+    with open(filepath, "wb") as decrypted_file: 
+        decrypted_file.write(decrypted_data)
+    
+# 3 define function: encrypts a msg
+def encrypt_message():
+    message = input("Enter message you want me to encrypt: ").encode()
+    print("Plaintext is: " + str(message.decode('utf-8')))
+    encrypted_msg = f.encrypt(message)
+    print(encrypted_msg)
+    print("cleaning up messy encryption...")
+    print("Ciphertext is: " + str(encrypted_msg.decode('utf-8')))
+          
+# 4 define function: decrypts the msg by decrypting the Fernet token
+def decrypt_message():  
+    message = input("Enter encrypted message for me to decrypt: ").encode()
+    print("Ciphertext is: " + str(message.decode('utf-8')))
+    decrypted = f.decrypt(message)
+    print("This message will self-destruct in 10 seconds.  10... 9...")
+    print("Plaintext is: " + str(message.decode('utf-8')))
+
+# 5 define function: a menu for user to input choice of encryption or decryption
+def ask_user(): 
+    user_choice = input("Encrypt file: enter 1\n Decrypt file: enter 2\n Encrypt message: enter 3\n Decrypt message: enter 4\n Exit: enter 'n'")
+
+    if (user_choice == "1"):
+        encrypt_file()
+        print("Your file has been encrypted. *Sh-sh-shaaaaahh!!!* ")
+    elif (user_choice == "2"):
+        decrypt_file()
+        print("Your file has been decrypted, SIRE.")
+    elif (user_choice == "3"):
+        encrypt_message()
+        print("*takes your message*")
+        print("")
+        print("*tears it into shreds*")
+        print("")
+        print("Your message is now encrypted.  ;) ")
+    elif (user_choice == "4"):
+        decrypt_message()
+        print("*feverishly pieces your message back together with scotch tape*")
+        print("")
+        print("*hands you a tiny taped-up mess*")
+        print("")
+        print("Your message has been decrypted.")
+    elif (user_choice == "n"):
+        
+        sys.exit()
+    else:
+        print("That is not an option in the menu. Try again.")
 
 
-    # While loop reads key variable
-While True
-ask_user() 
-While chosen 
-decrypt_message()
-encrypt_file()
-else decrypt_file()
-encrypt_message()
+# loads the key from the current directory named 'key.key'
+# While loop reads key variable
+while True:
+# key check
+    key_exists = os.path.exists('key.key')
+    print('Key Status: ')
+    print(key_exists)
+    if key_exists == False: 
+        write_key()
+    else: 
+        load_key()
+
+#Main
+ask_user()
+# While user_choice
 
