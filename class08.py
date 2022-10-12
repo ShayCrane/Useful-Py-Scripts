@@ -29,7 +29,7 @@ import sys
 
 # define ransom-note function
 def ransom_note():
-    pyautogui.password('You have been hacked!\nEnter passkey to get your files back\nCancel to lose all your files forever', 'Hack Announcement Service', 'Submit Passkey')
+    pyautogui.prompt('You have been hacked!\nEnter passkey to get your files back\nCancel to lose all your files forever', 'Hack Announcement Service', 'Submit Passkey')
 
 # define user_choice function to demonstrate 
 # how ransom_note function fits into the larger script
