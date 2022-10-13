@@ -13,8 +13,8 @@
 
 
 # install pyautogui library
-import ctypes
-import urllib.request
+# import ctypes
+# import urllib.request
 import pyautogui
 
 # define change_wallpaper function
@@ -31,7 +31,7 @@ def leave_note():
 
 # define ransom-note function
 def ransomware_simulate():
-    change_wallpaper()
+#   change_wallpaper()
     leave_note()
     
 # redefine ask_user() function (class06.py) to include more options
