@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
 
-# Scrhostt Name: Scapy Pt. 1
+# Script Name: Scapy Pt. 1
 # Author: Shay Crane
 # Date of last revision: 10/17/2022
-# Purpose: create a TCP Port Range Scanner That tests
-#  whether a TCP poert is open or closed
+# Purpose: create a TCP Port Range Scanner that tests
+#          whether a TCP port is open or closed
+
+# Credits: guidance on building script provided by TA extraordinaire, Raven. 
 
 
 # import libraries
@@ -19,7 +21,7 @@ host=input("Enter an IP or scanme.nmap.org: ")
 port_range=[22,23,80,443,3389]
 
 # for loop
-# is port_range the last number? if so, break and end scrhost; if not, scan:
+# is port_range the last number? if so, break loop, end script; if not, scan:
 for dst_port in port_range:
     src_port=random.randint(1025,65534)
     response=sr1(IP(dst=host)/TCP(sport=src_port,dport=dst_port,flags="S"),timeout=1,verbose=0,) # ping and scan
@@ -27,7 +29,6 @@ for dst_port in port_range:
 
 # if / elif / else
 # check flag; print to screen
-# pseudo code
     if response==None: 
         print(str(host)+":"+str(dst_port)) 
         print("was silently dropped.")
