@@ -82,7 +82,7 @@ def ping_sweep():
         choice="y"
 
     while choice=="y":
-        choice=input("Display all IP addresses in the CIDR block? yes or no: ")
+        choice=input("Display number of IP addresses in the CIDR block? yes or no: ")
         if choice=="yes":
             live_count+=1
             print("Total number of IP addresses in your chosen CIDR block:  "+str(live_count))
