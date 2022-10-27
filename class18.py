@@ -26,6 +26,8 @@
 import time, getpass, sys
 from pexpect import pxssh
 import zipfile
+from tqdm import tqdm
+
 
 
 
@@ -99,37 +101,39 @@ def iterator():
 
 
 #access zip file
-#thank you to https://www.geeksforgeeks.org/how-to-brute-force-zip-file-passwords-in-python/
+#thank you to https://www.thepythoncode.com/article/crack-zip-file-password-in-python
 #for the helpful online walkthrough of how to make this function work as required
 def crack_file():
     # zip_file=input("Enter the absolute path to the zip file you wish to access: ")
-    # usrfilepath=input("Enter the absolute filepath of your wordlist document: ")
+    # wordlist=input("Enter the absolute filepath of your wordlist document: ")
+    wordlist="/home/shannon/test-folder/rockyou.txt"
     zip_file="/home/shannon/test-folder/secretmsg.zip"
-    usrfilepath="/home/shannon/test-folder/rockyou.txt"
-    obj=zipfile.ZipFile(zip_file)
-    idx=0 #tracks line number of password in list
     
-    with open(usrfilepath,'rb') as filethree:
-        for line in filethree:
-            for word in line.split():
-                idx+=1
-                obj.extractall(pwd=word)
-                if crack_file(usrfilepath,obj)==True:
-                    print("The correct password was found on line ",idx)
-                    print("That password is: ",{word.decode()}," Returning to menu...")
-                    menu()
-                else:
-                    print("The password you need is not found in this file. Returning to the menu...")
-                    menu()
+    zip_file=zipfile.ZipFile(zip_file)
+    wordnums=len(list(open(wordlist, "rb")))
+    print("Total number of passwords to try: ", wordnums)
 
-                    
+    with open(wordlist,'rb') as wordlist:
+        for word in tqdm(wordlist,total=wordnums,unit="word"):
+            try:
+                zip_file.extractall(pwd=word.strip())
+            except:
+                continue
+            else:
+                print("[+] Password found:", word.decode().strip())
+                exit(0)
+            
+    print("[!] Password not found, returning to menu...")
+    menu()
+
+
 #password check
 def password_check():
     usrpwrd=getpass.getpass(prompt="Enter your chosen password: ")
-    usrfilepath=input("Enter the file path of your word list document: ")
-    print(f"Comparing your entered password against the contents in '{usrfilepath}'...")
+    wordlist=input("Enter the file path of your word list document: ")
+    print(f"Comparing your entered password against the contents in '{wordlist}'...")
     time.time()
-    filetwo=open(usrfilepath,encoding="ISO-9959-1")
+    filetwo=open(wordlist,encoding="ISO-9959-1")
     line=filetwo.readline()
     wordlist=[]
     while line:
