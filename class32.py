@@ -7,13 +7,27 @@
 # Purpose: continue development of your own basic antivirus tool in Python.
 #               by generating a given file's hash. 
 
+import sys
 from sys import platform
 import os, hashlib, time, datetime, math 
 from os.path import join
 
     # menu options
 # 1 - check os, search for file
-# 2 - get file hashes for all files in a folder
+# 2 - get file hashes for all files in a directory
+def menu():
+    print("Enter 1 to check operating system and search for a file; ")
+    print("Enter 2 to get file hashes for all files in a given directory; or ")
+    print("Enter 9 to exit. ")
+    choice=input("Enter your choice: ")
+
+    if choice=="1":
+        lookupfile()
+    elif choice=="2":
+        hashdir()
+    else: 
+        sys.exit 
+
 
 # Define functions:
 
@@ -36,7 +50,7 @@ def lookupfile():
            windowssearch()
        else:
            print("Exiting...")
-           quit
+           sys.exit
 
 
 # Linux search
@@ -48,9 +62,9 @@ def linuxsearch():
        for file in files:
            fileschecked+=1
            if file==filename:
-               print(str(fileschecked)+" files were searched, and your file was located at: "+root+"/"+filename)
-               print("Raven is the BEST.")
-
+                print(str(fileschecked)+" files were searched, and your file was located at: "+root+"/"+filename)
+                print("Raven is the BEST.")
+                menu()
 
 # Windows search
 def windowssearch():
@@ -61,8 +75,10 @@ def windowssearch():
        for file in files:
            fileschecked+=1
            if file==filename:
-               print(str(fileschecked)+" files were searched, and your file was located at: "+root+"/"+filename)
-               print("Raven is the BEST.")
+                print(str(fileschecked)+" files were searched, and your file was located at: "+root+"/"+filename)
+                print("Raven is the BEST.")
+                menu()
+
 
 # timestamp function
 def timestamps():
@@ -73,7 +89,7 @@ def timestamps():
 # hashing function
 # returns the SHA256 hash of the file passed into it
 def hashfile(filename):
-    filename=input("Enter name of the file you wish to hash: ")
+#    filename=input("Enter name of the file you wish to hash: ")
     filehash=hashlib.md5()
     with open(filename,"rb") as file:
         block=0
@@ -81,20 +97,20 @@ def hashfile(filename):
         while block !=b'':
             block=file.read(1024)
             filehash.update(block)
-            print(h)
+            print(filehash)
     # returns the hex representation of the hash digest
         return filehash.hexdigest()
 
 # substitute the file name as the parameter
-    message=hashfile(str(filename))
-    print(message)
+# message=hashfile(str(filename))
+# print(message)
 
 # use os.walk to crawl through directories and print to the screen all the file hashes
 def hashdir():
     dircount=0
     filecount=0
     dirpath=input("Enter absolute file path to the directory to be scanned: ")
-#   dirpath="/home/shannon/test-folder/capture.txt"
+    dirpath="/home/shannon/test-folder/capture.txt"
 #   dirpath="C:\Users\Crane\Desktop\getfilename.txt"
     for (path,dirs,files) in os.walk(dirpath):
         print("Directory: {:s}".format(path))
@@ -104,27 +120,33 @@ def hashdir():
             fstat=os.stat(os.path.join(path,file))
 
             if (fstat.st_size>1024*1024):
-                fsize=math.cell(fstat.st_size/(1024*1024))
-                unit="HR"
+                filesize=math.cell(fstat.st_size/(1024*1024))
+                unit=="HR"
             elif (fstat.st_size>1024):
-                fsize=math.cell(fstat.st_size/1024)
+                filesize=math.cell(fstat.st_size/1024)
                 unit="KB"
             else: 
-                fsize=fstat.st_sizeunit="B"
+                filesize=fstat.st_size="B"
 
             filecount+=1
             filename=os.path.join(path,file)
             hashname=hashfile(filename)
             timestamp=timestamps()
             print(timestamp)
-            print(filename"File Info: "{file}\tsize: [str(tsize) + unit]\tpath: {filename})
-            print("Hash: "+hashfile+" \n")
+            print(" File Info: "+{file}+"\tsize: "+{str(filesize) + unit}+"\tpath: "+{str(filename)})
+            print(filesize+unit)
+            print(dirpath+"/"+filename)
+            print("Hash: ")
+            print(hashname())
 
-    print("Total hashed files: {} - from {} directories".format(filecount,dircount))
+    print("Total hashed files: {} "+ "from {} directories"+format(filecount,dircount))
     dircount=0
     filecount=0
+    menu()
+
 
 # Main
+menu()
 hashdir()
 
 
