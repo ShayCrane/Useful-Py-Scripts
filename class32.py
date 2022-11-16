@@ -96,7 +96,7 @@ def hashdir():
     dirpath=input("Enter absolute file path to the directory to be scanned: ")
 #   dirpath="/home/shannon/test-folder/capture.txt"
 #   dirpath="C:\Users\Crane\Desktop\getfilename.txt"
-    for (path,dirs,files) in os.walk(dirpath)
+    for (path,dirs,files) in os.walk(dirpath):
         print("Directory: {:s}".format(path))
         dircount+=1
 
