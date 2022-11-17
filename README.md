@@ -1,8 +1,8 @@
-## 401 Cybersecurity Engineering
-## Ops-Challenges
+401 Cybersecurity Engineering
+Ops-Challenges
 
 
-# Table of Contents
+### Table of Contents
 1.    [class02](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class02.py)
 1.    [class03](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class03.py)
 1.    [class04](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class04.py)
