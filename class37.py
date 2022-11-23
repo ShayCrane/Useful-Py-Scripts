@@ -62,7 +62,7 @@ with open ('/home/shay/request.html', 'w') as f:
 
 # register Firefox as browser for Python to use:
 # webbrowser.register("firefox", None, webbrowser.BackgroundBrowser("/var/lib/snapd/desktop/applications/firefox_firefox.desktop")) #instance=None, preferred=False)
-# script run so browser is now registered. 
+# ran script, only needs to be run once. browser is now registered. 
     
 
 # set file path and open in firefox
