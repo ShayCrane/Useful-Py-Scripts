@@ -1,4 +1,4 @@
-# shell-scripts
+# Useful Py Scripts
 ### A list of useful Python scripts 
 
 *Be sure to test in a sandboxed environment before attempting use in the wild!*<br><br><br>
