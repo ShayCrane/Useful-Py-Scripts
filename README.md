@@ -1,11 +1,14 @@
 # shell-scripts
-## A list of useful Python scripts 
-Be sure to test in a sandboxed environment before using in the wild. 
+### A list of useful Python scripts 
 
+*Be sure to test in a sandboxed environment before attempting use in the wild!*<br><br><br>
 
+-------
 
+***Note: I've begun maintenance on this repo; therefore, some of the links below may be temporarily broken.  
+For now, files can still be easily browsed through this repo directory.***  <br>
 ### Table of Contents
-1.  [class02](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class02.py)
+1.  [checkPing](https://github.com/ShayCrane/shell-scripts/blob/main/checkPing.py)
 1.  [class03](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class03.py)
 1.  [class06](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class06.py)
 1.  [class07](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class07.py)
