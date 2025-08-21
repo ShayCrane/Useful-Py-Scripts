@@ -7,6 +7,8 @@
 
 ***Note: I've begun maintenance on this repo; therefore, some of the links below may be temporarily broken.  
 For now, files can still be easily browsed through this repo directory.***  <br>
+
+--------
 ### Table of Contents
 1.  [checkPing](https://github.com/ShayCrane/shell-scripts/blob/main/checkPing.py)
 1.  [class03](https://github.com/ShayCrane/401-Ops-Challenges/blob/main/class03.py)
