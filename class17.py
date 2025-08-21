@@ -4,9 +4,9 @@
 # Script Name: Automated Brute Force Wordlist Tool Pt. 2
 # Author: Shay Crane
 # Date of last revision: 10/25/2022
-# Purpose:  continue the development of a custom tool that performs
-#           brute force attacks to better understand the types of
-#           automation employed by malicious hackers. 
+# Purpose:  a second part the automated brute force wordlist tool, a custom 
+#           tool that performs brute force attacks. the creation and use of 
+#           this tool is an automation that can be deployed by malicious actors. 
 
 
 
